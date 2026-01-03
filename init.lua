@@ -18,41 +18,18 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local plugins = {
-  {
-    "catppuccin/nvim",
-    lazy = false,
-    name = "catppuccin",
-    priority = 1000
-  },
-  {
-    'nvim-telescope/telescope.nvim', tag = 'v0.2.1',
-    dependencies = { 
-      'nvim-lua/plenary.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
-    }
-  },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    lazy = false,
-    branch = "master",
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "java", "bash", "lua", "xml" },
-        highlight = { enable = true },
-        indent = { enable = true },
-      })
-    end,
-  }
-}
-local opts = {}
+require("lazy").setup("plugins")
 
-require("lazy").setup(plugins, opts)
-
+-- KEYMAPS
+-- Telescope
 local builtin = require("telescope.builtin")
 vim.keymap.set('n', '<C-p>', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+
+-- TREE
+vim.keymap.set('n', '<A-1>', ':Neotree filesystem reveal left<CR>')
+vim.keymap.set('n', '<leader>1', ':Neotree filesystem toggle left<CR>')
+
 
 require("catppuccin").setup()
 vim.cmd.colorscheme "catppuccin"

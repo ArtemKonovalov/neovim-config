@@ -35,7 +35,15 @@ local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
-    build = ":TSUpdate"
+    branch = "master",
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "java", "bash", "lua", "xml" },
+        highlight = { enable = true },
+        indent = { enable = true },
+      })
+    end,
   }
 }
 local opts = {}
@@ -45,12 +53,6 @@ require("lazy").setup(plugins, opts)
 local builtin = require("telescope.builtin")
 vim.keymap.set('n', '<C-p>', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-
-require("nvim-treesitter").install({ 'lua', 'java', 'bash', 'javascript' })
---vim.api.nvim_create_autocmd('FileType', {
---  pattern = { 'java' },
---  callback = function() vim.treesitter.start() end,
---})
 
 require("catppuccin").setup()
 vim.cmd.colorscheme "catppuccin"

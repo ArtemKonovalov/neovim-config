@@ -6,6 +6,7 @@ Personal configuration for NeoVim plugins
 1. Installed the Nerd font with missing icons that are used in some plugins
 2. Installed `ripgrep` needed in `Telescope`
 3. Installed `fd-find` suggested in `Telescope` (optional)
+4. Installed `checkstyle` cli
 
 ### Worth mentioning
 
